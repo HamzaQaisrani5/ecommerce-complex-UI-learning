@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:ecommerce_app/core/app_colors/app_colors.dart';
 import 'package:ecommerce_app/screens/home_screen.dart';
+import 'package:ecommerce_app/screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -19,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(Duration(seconds: 3), () {
       Navigator.of(
         context,
-      ).pushReplacement(MaterialPageRoute(builder: (_) => HomeScreen()));
+      ).pushReplacement(MaterialPageRoute(builder: (_) => OnBoardingScreen()));
     });
   }
 
@@ -30,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
         decoration: BoxDecoration(
           color: Colors.black,
           image: DecorationImage(
-            image: AssetImage('asset/image_6.jpg'),
+            image: AssetImage('asset/images/image_6.jpg'),
             fit: BoxFit.cover,
             opacity: 0.3,
           ),
