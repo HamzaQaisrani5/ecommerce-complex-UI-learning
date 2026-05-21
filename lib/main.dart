@@ -3,7 +3,6 @@ import 'package:ecommerce_app/screens/auth/login_screen.dart';
 import 'package:ecommerce_app/screens/auth/otp_varify.dart';
 import 'package:ecommerce_app/screens/bottom_navigation_screen/bottom_navigation_screen.dart';
 import 'package:ecommerce_app/screens/splash_screen.dart';
-import 'package:ecommerce_app/service/btm_service/btm_service.dart';
 import 'package:ecommerce_app/widgets/custom_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -26,7 +25,7 @@ class MyApp extends StatelessWidget {
       title: 'ECommerce',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primaryColor: Color(0xffef6969)),
-      home: BottomNavigationScreen(BtmService()),
+      home: BottomNavigationScreen(),
     );
   }
 }

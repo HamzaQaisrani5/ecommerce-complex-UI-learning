@@ -17,6 +17,7 @@ class CustomBottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 70,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         color: AppColors.primaryColor,
@@ -26,24 +27,42 @@ class CustomBottomBar extends StatelessWidget {
         ),
       ),
       child: Row(
-        children: List.generate(items.length, (index) {
-          return Expanded(
-            child: InkWell(
-              onTap: () => onTap(index),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  index == currentIndex
-                      ? items[index].activeIcon
-                      : items[index].inActiveIcon,
-                  SizedBox(height: 2),
-                  Text(items[index].label),
-                ],
-              ),
-            ),
-          );
-        }),
+        children: [
+          _buildItem(0, onTap, currentIndex, items),
+          _buildItem(1, onTap, currentIndex, items),
+          SizedBox(width: 65),
+          _buildItem(2, onTap, currentIndex, items),
+          _buildItem(3, onTap, currentIndex, items),
+        ],
       ),
     );
   }
+}
+
+Widget _buildItem(
+  int index,
+  ValueChanged<int> onTap,
+  int currentIndex,
+  List<BottomNavItem> items,
+) {
+  return Expanded(
+    child: InkWell(
+      onTap: () => onTap(index),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          index == currentIndex
+              ? items[index].activeIcon
+              : items[index].inActiveIcon,
+          SizedBox(height: 2),
+          Text(
+            items[index].label,
+            style: TextStyle(
+              color: index == currentIndex ? Colors.white : Colors.black,
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
 }
