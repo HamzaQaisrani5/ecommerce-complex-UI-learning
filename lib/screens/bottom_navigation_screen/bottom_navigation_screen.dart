@@ -41,52 +41,102 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
       floatingActionButtonLocation:
           FloatingActionButtonLocation.miniCenterDocked,
       body: IndexedStack(index: widget.currentIndex, children: _screens),
-      bottomNavigationBar: CustomBottomBar(
-        onTap: (index) {
-          setState(() {
-            setIndex(index);
-          });
-        },
-        items: [
-          BottomNavItem(
-            activeIcon: Icon(Icons.home, color: Colors.white, size: 35),
-            inActiveIcon: Icon(Icons.home, color: Colors.black, size: 30),
-            label: 'Home',
-          ),
-          BottomNavItem(
-            activeIcon: Icon(
-              Icons.shopping_cart,
-              color: Colors.white,
-              size: 35,
+      bottomNavigationBar: BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        child: CustomBottomBar(
+          onTap: (index) {
+            setState(() {
+              setIndex(index);
+            });
+          },
+          items: [
+            BottomNavItem(
+              activeIcon: Icon(Icons.home, color: Colors.white, size: 35),
+              inActiveIcon: Icon(Icons.home, color: Colors.black, size: 30),
+              label: 'Home',
             ),
-            inActiveIcon: Icon(
-              Icons.shopping_cart,
-              color: Colors.black,
-              size: 30,
+            BottomNavItem(
+              activeIcon: Icon(
+                Icons.shopping_cart,
+                color: Colors.white,
+                size: 35,
+              ),
+              inActiveIcon: Icon(
+                Icons.shopping_cart,
+                color: Colors.black,
+                size: 30,
+              ),
+              label: 'Cart',
             ),
-            label: 'Cart',
-          ),
-          BottomNavItem(
-            activeIcon: Icon(
-              Icons.favorite_outlined,
-              color: Colors.white,
-              size: 35,
+            BottomNavItem(
+              activeIcon: Icon(
+                Icons.favorite_outlined,
+                color: Colors.white,
+                size: 35,
+              ),
+              inActiveIcon: Icon(
+                Icons.favorite_outlined,
+                color: Colors.black,
+                size: 30,
+              ),
+              label: 'Favourite',
             ),
-            inActiveIcon: Icon(
-              Icons.favorite_outlined,
-              color: Colors.black,
-              size: 30,
+            BottomNavItem(
+              activeIcon: Icon(Icons.person, color: Colors.white, size: 35),
+              inActiveIcon: Icon(Icons.person, color: Colors.black, size: 30),
+              label: 'Profile',
             ),
-            label: 'Favourite',
-          ),
-          BottomNavItem(
-            activeIcon: Icon(Icons.person, color: Colors.white, size: 35),
-            inActiveIcon: Icon(Icons.person, color: Colors.black, size: 30),
-            label: 'Profile',
-          ),
-        ],
-        currentIndex: widget.currentIndex,
+          ],
+          currentIndex: widget.currentIndex,
+        ),
       ),
+
+      // CustomBottomBar(
+      //   onTap: (index) {
+      //     setState(() {
+      //       setIndex(index);
+      //     });
+      //   },
+      //   items: [
+      //     BottomNavItem(
+      //       activeIcon: Icon(Icons.home, color: Colors.white, size: 35),
+      //       inActiveIcon: Icon(Icons.home, color: Colors.black, size: 30),
+      //       label: 'Home',
+      //     ),
+      //     BottomNavItem(
+      //       activeIcon: Icon(
+      //         Icons.shopping_cart,
+      //         color: Colors.white,
+      //         size: 35,
+      //       ),
+      //       inActiveIcon: Icon(
+      //         Icons.shopping_cart,
+      //         color: Colors.black,
+      //         size: 30,
+      //       ),
+      //       label: 'Cart',
+      //     ),
+      //     BottomNavItem(
+      //       activeIcon: Icon(
+      //         Icons.favorite_outlined,
+      //         color: Colors.white,
+      //         size: 35,
+      //       ),
+      //       inActiveIcon: Icon(
+      //         Icons.favorite_outlined,
+      //         color: Colors.black,
+      //         size: 30,
+      //       ),
+      //       label: 'Favourite',
+      //     ),
+      //     BottomNavItem(
+      //       activeIcon: Icon(Icons.person, color: Colors.white, size: 35),
+      //       inActiveIcon: Icon(Icons.person, color: Colors.black, size: 30),
+      //       label: 'Profile',
+      //     ),
+      //   ],
+      //   currentIndex: widget.currentIndex,
+      // ),
     );
   }
 }

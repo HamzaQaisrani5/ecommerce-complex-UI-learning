@@ -16,26 +16,38 @@ class CustomBottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 70,
-      width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
-        color: AppColors.primaryColor,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(8),
-          topRight: Radius.circular(8),
-        ),
-      ),
+    return BottomAppBar(
+      shape: CircularNotchedRectangle(),
       child: Row(
         children: [
           _buildItem(0, onTap, currentIndex, items),
           _buildItem(1, onTap, currentIndex, items),
-          SizedBox(width: 65),
+          // SizedBox(width: 65),
           _buildItem(2, onTap, currentIndex, items),
           _buildItem(3, onTap, currentIndex, items),
         ],
       ),
     );
+    // Container(
+    //   height: 70,
+    //   width: MediaQuery.of(context).size.width,
+    //   decoration: BoxDecoration(
+    //     color: AppColors.primaryColor,
+    //     borderRadius: BorderRadius.only(
+    //       topLeft: Radius.circular(8),
+    //       topRight: Radius.circular(8),
+    //     ),
+    //   ),
+    //   child: Row(
+    //     children: [
+    //       _buildItem(0, onTap, currentIndex, items),
+    //       _buildItem(1, onTap, currentIndex, items),
+    //       // SizedBox(width: 65),
+    //       _buildItem(2, onTap, currentIndex, items),
+    //       _buildItem(3, onTap, currentIndex, items),
+    //     ],
+    //   ),
+    // );
   }
 }
 
