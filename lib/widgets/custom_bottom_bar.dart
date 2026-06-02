@@ -17,6 +17,7 @@ class CustomBottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
+      color: AppColors.selectedTabColor,
       shape: CircularNotchedRectangle(),
       child: Row(
         children: [
@@ -66,7 +67,7 @@ Widget _buildItem(
           index == currentIndex
               ? items[index].activeIcon
               : items[index].inActiveIcon,
-          SizedBox(height: 2),
+          // SizedBox(height: 2),
           Text(
             items[index].label,
             style: TextStyle(

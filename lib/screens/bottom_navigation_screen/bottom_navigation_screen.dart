@@ -33,7 +33,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
     // widget.currentIndex = widget.btmService.index;
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        backgroundColor: AppColors.darkPrimaryColor,
+        backgroundColor: AppColors.selectedTabColor,
         shape: CircleBorder(),
         child: Icon(Icons.qr_code, color: Colors.white),
         onPressed: () {},
@@ -41,54 +41,51 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
       floatingActionButtonLocation:
           FloatingActionButtonLocation.miniCenterDocked,
       body: IndexedStack(index: widget.currentIndex, children: _screens),
-      bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
-        child: CustomBottomBar(
-          onTap: (index) {
-            setState(() {
-              setIndex(index);
-            });
-          },
-          items: [
-            BottomNavItem(
-              activeIcon: Icon(Icons.home, color: Colors.white, size: 35),
-              inActiveIcon: Icon(Icons.home, color: Colors.black, size: 30),
-              label: 'Home',
+      bottomNavigationBar: CustomBottomBar(
+        onTap: (index) {
+          setState(() {
+            setIndex(index);
+          });
+        },
+        items: [
+          BottomNavItem(
+            activeIcon: Icon(Icons.home, color: Colors.white, size: 32),
+            inActiveIcon: Icon(Icons.home, color: Colors.black, size: 30),
+            label: 'Home',
+          ),
+          BottomNavItem(
+            activeIcon: Icon(
+              Icons.shopping_cart,
+              color: Colors.white,
+              size: 32,
             ),
-            BottomNavItem(
-              activeIcon: Icon(
-                Icons.shopping_cart,
-                color: Colors.white,
-                size: 35,
-              ),
-              inActiveIcon: Icon(
-                Icons.shopping_cart,
-                color: Colors.black,
-                size: 30,
-              ),
-              label: 'Cart',
+            inActiveIcon: Icon(
+              Icons.shopping_cart,
+              color: Colors.black,
+              size: 30,
             ),
-            BottomNavItem(
-              activeIcon: Icon(
-                Icons.favorite_outlined,
-                color: Colors.white,
-                size: 35,
-              ),
-              inActiveIcon: Icon(
-                Icons.favorite_outlined,
-                color: Colors.black,
-                size: 30,
-              ),
-              label: 'Favourite',
+            label: 'Cart',
+          ),
+          BottomNavItem(
+            activeIcon: Icon(
+              Icons.favorite_outlined,
+              color: Colors.white,
+              size: 32,
             ),
-            BottomNavItem(
-              activeIcon: Icon(Icons.person, color: Colors.white, size: 35),
-              inActiveIcon: Icon(Icons.person, color: Colors.black, size: 30),
-              label: 'Profile',
+            inActiveIcon: Icon(
+              Icons.favorite_outlined,
+              color: Colors.black,
+              size: 30,
             ),
-          ],
-          currentIndex: widget.currentIndex,
-        ),
+            label: 'Favourite',
+          ),
+          BottomNavItem(
+            activeIcon: Icon(Icons.person, color: Colors.white, size: 32),
+            inActiveIcon: Icon(Icons.person, color: Colors.black, size: 30),
+            label: 'Profile',
+          ),
+        ],
+        currentIndex: widget.currentIndex,
       ),
 
       // CustomBottomBar(
