@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/core/app_colors/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 class ProductCard extends StatelessWidget {
   final String name;
@@ -42,11 +43,7 @@ class ProductCard extends StatelessWidget {
                 ),
               ),
 
-              Positioned(
-                right: 3,
-                top: 10,
-                child: Icon(Icons.check, color: Colors.black54),
-              ),
+              Positioned(right: 3, top: 10, child: Icon(CupertinoIcons.heart)),
 
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,

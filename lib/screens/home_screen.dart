@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/screens/cart_screen.dart';
 import 'package:ecommerce_app/screens/product_detail_screen.dart';
 import 'package:ecommerce_app/widgets/home_promotion_card.dart';
 import 'package:ecommerce_app/widgets/product_card.dart';
@@ -56,6 +57,27 @@ class _HomeScreenState extends State<HomeScreen> {
       'category': 'watch',
       'old_price': '\$100',
     },
+    {
+      'name': 'Lycra Men\'s Shirt',
+      'ds_price': '\$150',
+      'picture': 'asset/images/cart_images/cart_shirt.png',
+      'category': 'shirt',
+      'old_price': '\$250',
+    },
+    {
+      'name': 'Siberia 800',
+      'ds_price': '\$5600',
+      'picture': 'asset/images/cart_images/cart_headphone.png',
+      'category': 'purse',
+      'old_price': '\$6500',
+    },
+    {
+      'name': 'Nike/L v Airforce 1',
+      'ds_price': '\$230',
+      'picture': 'asset/images/cart_images/cart_shoe.png',
+      'category': 'shoe',
+      'old_price': '\$310',
+    },
   ];
 
   void setBottomTabIndex(int index) {
@@ -75,6 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      persistentFooterDecoration: BoxDecoration(color: Colors.amber),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsetsGeometry.only(left: 10, right: 10, top: 20),
@@ -216,6 +239,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                     picture: picture,
                                     dsPrice: dsPrice,
                                     oldPrice: oldPrice,
+                                    cartScreen: CartScreen(
+                                      name: name,
+                                      picture: picture,
+                                      dsPrice: dsPrice,
+                                      oldPrice: oldPrice,
+                                    ),
                                   ),
                                 ),
                               );

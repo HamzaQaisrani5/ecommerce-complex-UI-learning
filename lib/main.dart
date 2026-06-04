@@ -1,7 +1,9 @@
+import 'package:ecommerce_app/core/app_colors/app_colors.dart';
 import 'package:ecommerce_app/screens/auth/forgot_screen.dart';
 import 'package:ecommerce_app/screens/auth/login_screen.dart';
 import 'package:ecommerce_app/screens/auth/otp_varify.dart';
 import 'package:ecommerce_app/screens/bottom_navigation_screen/bottom_navigation_screen.dart';
+import 'package:ecommerce_app/screens/cart_screen.dart';
 import 'package:ecommerce_app/screens/home_screen.dart';
 import 'package:ecommerce_app/screens/product_detail_screen.dart';
 import 'package:ecommerce_app/screens/splash_screen.dart';
@@ -15,6 +17,9 @@ void main() {
     DeviceOrientation.portraitDown,
     DeviceOrientation.portraitUp,
   ]);
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(statusBarColor: AppColors.selectedTabColor),
+  );
   runApp(MyApp());
 }
 
@@ -27,7 +32,7 @@ class MyApp extends StatelessWidget {
       title: 'ECommerce',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primaryColor: Color(0xffef6969)),
-      home: HomeScreen() 
+      home: BottomNavigationScreen(),
       // ProductDetailScreen(name: '', picture: 'asset/images/home_images/watch_1.png', dsPrice: '', oldPrice: '',),
     );
   }

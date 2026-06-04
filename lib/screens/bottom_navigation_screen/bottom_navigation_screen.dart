@@ -1,4 +1,3 @@
-import 'package:ecommerce_app/core/app_colors/app_colors.dart';
 import 'package:ecommerce_app/models/bottom_nav_item.dart';
 import 'package:ecommerce_app/screens/profile_screen.dart';
 import 'package:ecommerce_app/screens/cart_screen.dart';
@@ -7,10 +6,12 @@ import 'package:ecommerce_app/screens/product_screen.dart';
 import 'package:ecommerce_app/widgets/custom_bottom_bar.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class BottomNavigationScreen extends StatefulWidget {
-  // final BtmService btmService;
   int currentIndex;
-  BottomNavigationScreen({super.key, this.currentIndex = 0});
+  // List<Map<String,dynamic>> cart = [];
+  // List<Map<String, dynamic>> cartItems = [];
+  BottomNavigationScreen({super.key, this.currentIndex = 0, });
 
   @override
   State<BottomNavigationScreen> createState() => _BottomNavigationScreenState();
@@ -21,9 +22,9 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
     widget.currentIndex = newIndex;
   }
 
-  final List<Widget> _screens = [
+   final List<Widget> _screens = [
     HomeScreen(),
-    CartScreen(),
+    CartScreen(name: '', picture: '', dsPrice: '', oldPrice: '',),
     FavouriteScreen(),
     ProfileScreen(),
   ];
@@ -32,14 +33,6 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   Widget build(BuildContext context) {
     // widget.currentIndex = widget.btmService.index;
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: AppColors.selectedTabColor,
-        shape: CircleBorder(),
-        child: Icon(Icons.qr_code, color: Colors.white),
-        onPressed: () {},
-      ),
-      floatingActionButtonLocation:
-          FloatingActionButtonLocation.miniCenterDocked,
       body: IndexedStack(index: widget.currentIndex, children: _screens),
       bottomNavigationBar: CustomBottomBar(
         onTap: (index) {
@@ -87,53 +80,6 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         ],
         currentIndex: widget.currentIndex,
       ),
-
-      // CustomBottomBar(
-      //   onTap: (index) {
-      //     setState(() {
-      //       setIndex(index);
-      //     });
-      //   },
-      //   items: [
-      //     BottomNavItem(
-      //       activeIcon: Icon(Icons.home, color: Colors.white, size: 35),
-      //       inActiveIcon: Icon(Icons.home, color: Colors.black, size: 30),
-      //       label: 'Home',
-      //     ),
-      //     BottomNavItem(
-      //       activeIcon: Icon(
-      //         Icons.shopping_cart,
-      //         color: Colors.white,
-      //         size: 35,
-      //       ),
-      //       inActiveIcon: Icon(
-      //         Icons.shopping_cart,
-      //         color: Colors.black,
-      //         size: 30,
-      //       ),
-      //       label: 'Cart',
-      //     ),
-      //     BottomNavItem(
-      //       activeIcon: Icon(
-      //         Icons.favorite_outlined,
-      //         color: Colors.white,
-      //         size: 35,
-      //       ),
-      //       inActiveIcon: Icon(
-      //         Icons.favorite_outlined,
-      //         color: Colors.black,
-      //         size: 30,
-      //       ),
-      //       label: 'Favourite',
-      //     ),
-      //     BottomNavItem(
-      //       activeIcon: Icon(Icons.person, color: Colors.white, size: 35),
-      //       inActiveIcon: Icon(Icons.person, color: Colors.black, size: 30),
-      //       label: 'Profile',
-      //     ),
-      //   ],
-      //   currentIndex: widget.currentIndex,
-      // ),
     );
   }
 }

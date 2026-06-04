@@ -16,7 +16,7 @@ class _HomePromotionCardState extends State<HomePromotionCard> {
   @override
   void initState() {
     super.initState();
-    Timer.periodic(Duration(seconds: 1), (Timer timer) {
+    Timer.periodic(Duration(seconds: 3), (Timer timer) {
       widget.currentIndex++;
       if (widget.currentIndex > 2) {
         widget.currentIndex = 0;
