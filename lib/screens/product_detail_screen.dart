@@ -7,13 +7,16 @@ class ProductDetailScreen extends StatefulWidget {
   final String picture;
   final String dsPrice;
   final String oldPrice;
+  // final ValueChanged<int> review;
+  int reviewStarIndex;
 
-  const ProductDetailScreen({
+  ProductDetailScreen({
     super.key,
     required this.name,
     required this.picture,
     required this.dsPrice,
     required this.oldPrice,
+    this.reviewStarIndex = -1,
   });
 
   @override
@@ -21,6 +24,10 @@ class ProductDetailScreen extends StatefulWidget {
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
+  void selectedStar(int index) {
+    widget.reviewStarIndex = index;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,14 +36,14 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              // margin: EdgeInsets.only(bottom: 20),
-              padding: EdgeInsets.only(bottom: 20),
+              // padding: EdgeInsets.only(bottom: 20),
               height: MediaQuery.of(context).size.height / 2,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.contain,
-                  image: AssetImage('asset/images/home_images/watch_1.png'),
+                  // alignment: Alignment.center,
+                  image: AssetImage(widget.picture),
                 ),
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(200),
@@ -52,7 +59,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   width: 10,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: AppColors.selectedTabColor,
+                    color: AppColors.selectedTabColor.withAlpha(200),
                   ),
                 ),
               ),
@@ -62,9 +69,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 10),
+                  SizedBox(height: 8),
                   Text(
-                    'Apple Watch Series 6',
+                    widget.name,
                     style: TextStyle(
                       fontSize: 15,
                       color: Colors.grey.shade500,
@@ -72,32 +79,32 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     ),
                   ),
                   SizedBox(height: 10),
-                  SizedBox(
-                    height: 60,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 5,
-                      itemBuilder: (_, index) {
-                        return IconButton(
-                          hoverColor: Colors.transparent,
-                          onPressed: () {},
-                          icon: Icon(Icons.star_border_outlined),
-                        );
-                        // InkWell(
-                        //   onTap: () {},
-                        //   child: Expanded(
-                        //     child: Icon(Icons.star_border_outlined),
-                        //   ),
-                        // );
-                      },
-                    ),
+                  Row(
+                    children: List.generate(5, (index) {
+                      return IconButton(
+                        iconSize: 30,
+                        highlightColor: Colors.transparent,
+                        onPressed: () {
+                          setState(() {
+                            selectedStar(index);
+                          });
+                        },
+                        icon: index <= widget.reviewStarIndex
+                            ? Icon(Icons.star, color: Colors.yellow.shade800)
+                            : Icon(
+                                Icons.star_border_outlined,
+                                color: Colors.yellow.shade800,
+                              ),
+                      );
+                    }),
                   ),
-                  SizedBox(height: 10),
+
+                  SizedBox(height: 8),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        '\$5000',
+                        widget.dsPrice,
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
@@ -106,11 +113,18 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       ),
                       SizedBox(width: 12),
                       Text(
-                        '\$6400',
+                        widget.oldPrice,
                         style: TextStyle(color: Colors.grey.shade500),
                       ),
-                      SizedBox(width: 150),
-                      Text('Available Stock'),
+                      SizedBox(width: 148),
+                      Text(
+                        'Available in Stock',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11,
+                        ),
+                      ),
                     ],
                   ),
                   SizedBox(height: 10),
@@ -122,11 +136,18 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   Text(
                     'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since 1966, when designers at Letraset and James Mosley, the librarian at St Bride Printing Library, took a 1914 Cicero translation',
                   ),
+                  SizedBox(height: 12),
                   ElevatedButton(
                     style: TextButton.styleFrom(
                       foregroundColor: Colors.white,
                       backgroundColor: AppColors.selectedTabColor,
-                      fixedSize: Size(500, 45),
+                      fixedSize: Size(
+                        MediaQuery.of(context).size.width - 20,
+                        45,
+                      ),
+                      shape: ContinuousRectangleBorder(
+                        borderRadius: BorderRadiusGeometry.circular(25),
+                      ),
                     ),
                     onPressed: () {},
                     child: Text(

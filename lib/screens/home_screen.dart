@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/screens/product_detail_screen.dart';
 import 'package:ecommerce_app/widgets/home_promotion_card.dart';
 import 'package:ecommerce_app/widgets/product_card.dart';
 import 'package:flutter/material.dart';
@@ -193,11 +194,31 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         itemCount: filteredProducts().length,
                         itemBuilder: (context, index) {
+                          final String name = filteredProducts()[index]['name'];
+                          final String dsPrice =
+                              filteredProducts()[index]['ds_price'];
+                          final String picture =
+                              filteredProducts()[index]['picture'];
+                          final String oldPrice =
+                              filteredProducts()[index]['old_price'];
                           return ProductCard(
-                            name: filteredProducts()[index]['name'],
-                            dsPrice: filteredProducts()[index]['ds_price'],
-                            picture: filteredProducts()[index]['picture'],
-                            oldPrice: filteredProducts()[index]['old_price'],
+                            name: name,
+                            dsPrice: dsPrice,
+                            picture: picture,
+                            oldPrice: oldPrice,
+                            onTap: (index) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => ProductDetailScreen(
+                                    name: name,
+                                    picture: picture,
+                                    dsPrice: dsPrice,
+                                    oldPrice: oldPrice,
+                                  ),
+                                ),
+                              );
+                            },
                           );
                         },
                       ),

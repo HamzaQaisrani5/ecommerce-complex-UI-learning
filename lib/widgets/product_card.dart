@@ -1,8 +1,10 @@
 import 'package:ecommerce_app/core/app_colors/app_colors.dart';
 import 'package:flutter/material.dart';
+
 class ProductCard extends StatelessWidget {
   final String name;
   final String dsPrice;
+  final void Function(int? index) onTap;
   // final String category;
   final String picture;
   final String oldPrice;
@@ -13,12 +15,15 @@ class ProductCard extends StatelessWidget {
     // required this.category,
     required this.picture,
     required this.oldPrice,
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        onTap(null);
+      },
       child: Container(
         decoration: BoxDecoration(
           color: AppColors.tabsBgColor,
