@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/core/app_colors/app_colors.dart';
+import 'package:ecommerce_app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
@@ -32,6 +33,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
+        top: false,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -52,16 +54,33 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 // shape: BoxShape.circle,
                 color: AppColors.tabsBgColor,
               ),
-              child: Align(
-                alignment: AlignmentGeometry.bottomCenter,
-                child: Container(
-                  height: 20,
-                  width: 10,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: AppColors.selectedTabColor.withAlpha(200),
+              child: Stack(
+                children: [
+                  Positioned(
+                    left: 3,
+                    top: 30,
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (_) => HomeScreen()),
+                        );
+                      },
+                      icon: Icon(Icons.arrow_back),
+                      focusColor: Colors.transparent,
+                    ),
                   ),
-                ),
+                  Align(
+                    alignment: AlignmentGeometry.bottomCenter,
+                    child: Container(
+                      height: 20,
+                      width: 10,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: AppColors.selectedTabColor.withAlpha(200),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             Padding(
@@ -69,7 +88,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 8),
+                  SizedBox(height: 9),
                   Text(
                     widget.name,
                     style: TextStyle(
@@ -78,7 +97,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 12),
                   Row(
                     children: List.generate(5, (index) {
                       return IconButton(
@@ -99,7 +118,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     }),
                   ),
 
-                  SizedBox(height: 8),
+                  SizedBox(height: 9),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -127,7 +146,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 15),
                   Text(
                     'About',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
@@ -136,7 +155,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   Text(
                     'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since 1966, when designers at Letraset and James Mosley, the librarian at St Bride Printing Library, took a 1914 Cicero translation',
                   ),
-                  SizedBox(height: 12),
+                  SizedBox(height: 30),
                   ElevatedButton(
                     style: TextButton.styleFrom(
                       foregroundColor: Colors.white,
