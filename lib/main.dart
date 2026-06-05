@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:ecommerce_app/core/app_colors/app_colors.dart';
+import 'package:ecommerce_app/core/constants.dart';
 import 'package:ecommerce_app/screens/auth/forgot_screen.dart';
 import 'package:ecommerce_app/screens/auth/login_screen.dart';
 import 'package:ecommerce_app/screens/auth/otp_varify.dart';
@@ -10,8 +13,10 @@ import 'package:ecommerce_app/screens/splash_screen.dart';
 import 'package:ecommerce_app/widgets/custom_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitDown,
@@ -20,6 +25,12 @@ void main() {
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(statusBarColor: AppColors.selectedTabColor),
   );
+  final Directory dir = await getApplicationDocumentsDirectory();
+  Hive.init(dir.path);
+  var box = await Hive.openBox(StorageKeys.cartItems);
+  for (var item in box.values) {
+  item['quantity'] ??= 1;
+}
   runApp(MyApp());
 }
 

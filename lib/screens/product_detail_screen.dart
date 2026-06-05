@@ -2,10 +2,12 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:ecommerce_app/core/app_colors/app_colors.dart';
+import 'package:ecommerce_app/core/constants.dart';
 import 'package:ecommerce_app/screens/bottom_navigation_screen/bottom_navigation_screen.dart';
 import 'package:ecommerce_app/screens/cart_screen.dart';
 import 'package:ecommerce_app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
 class ProductDetailScreen extends StatefulWidget {
@@ -14,7 +16,8 @@ class ProductDetailScreen extends StatefulWidget {
   final String dsPrice;
   final String oldPrice;
   int reviewStarIndex;
-  final CartScreen cartScreen;
+  int quantity;
+  // final CartScreen cartScreen;
 
   ProductDetailScreen({
     super.key,
@@ -23,7 +26,8 @@ class ProductDetailScreen extends StatefulWidget {
     required this.dsPrice,
     required this.oldPrice,
     this.reviewStarIndex = -1,
-    required this.cartScreen,
+    this.quantity = 1
+    // required this.cartScreen,
   });
 
   @override
@@ -179,7 +183,19 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           borderRadius: BorderRadiusGeometry.circular(25),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () async {
+                        final item = {
+                          'name': widget.name,
+                          'picture': widget.picture,
+                          'ds_price': widget.dsPrice,
+                          'old_price': widget.oldPrice,
+                          'qunatity':widget.quantity,
+                        };
+                        final hive = Hive.box(StorageKeys.cartItems);
+                        await hive.add(item);
+
+                        // log('cartList: ${hive.values.toList()}');
+                      },
                       child: Text(
                         'Add to Cart',
                         style: TextStyle(fontWeight: FontWeight.bold),

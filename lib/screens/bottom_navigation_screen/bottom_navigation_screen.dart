@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:ecommerce_app/core/constants.dart';
 import 'package:ecommerce_app/models/bottom_nav_item.dart';
 import 'package:ecommerce_app/screens/profile_screen.dart';
 import 'package:ecommerce_app/screens/cart_screen.dart';
@@ -5,35 +8,34 @@ import 'package:ecommerce_app/screens/home_screen.dart';
 import 'package:ecommerce_app/screens/product_screen.dart';
 import 'package:ecommerce_app/widgets/custom_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 // ignore: must_be_immutable
 class BottomNavigationScreen extends StatefulWidget {
   int currentIndex;
-  // List<Map<String,dynamic>> cart = [];
-  // List<Map<String, dynamic>> cartItems = [];
-  BottomNavigationScreen({super.key, this.currentIndex = 0, });
+  BottomNavigationScreen({super.key, this.currentIndex = 0});
 
   @override
   State<BottomNavigationScreen> createState() => _BottomNavigationScreenState();
 }
 
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
+  List cartItems = [];
+ 
   void setIndex(int newIndex) {
     widget.currentIndex = newIndex;
+    final hive = Hive.box(StorageKeys.cartItems);
+    cartItems = hive.values.toList();
+    log('cartList: $cartItems');
   }
-
-   final List<Widget> _screens = [
-    HomeScreen(),
-    CartScreen(name: '', picture: '', dsPrice: '', oldPrice: '',),
-    FavouriteScreen(),
-    ProfileScreen(),
-  ];
 
   @override
   Widget build(BuildContext context) {
-    // widget.currentIndex = widget.btmService.index;
     return Scaffold(
-      body: IndexedStack(index: widget.currentIndex, children: _screens),
+      body: IndexedStack(index: widget.currentIndex, children: [ HomeScreen(),
+    CartScreen(cartItem: cartItems),
+    FavouriteScreen(),
+    ProfileScreen(),]),
       bottomNavigationBar: CustomBottomBar(
         onTap: (index) {
           setState(() {

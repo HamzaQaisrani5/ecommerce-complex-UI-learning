@@ -17,7 +17,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final PageController _pageController = PageController();
+  // final PageController _pageController = PageController();
   List tabIconspath = [
     'asset/icons/watch_icon.png',
     'asset/icons/shoe_icon.png',
@@ -239,12 +239,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                     picture: picture,
                                     dsPrice: dsPrice,
                                     oldPrice: oldPrice,
-                                    cartScreen: CartScreen(
-                                      name: name,
-                                      picture: picture,
-                                      dsPrice: dsPrice,
-                                      oldPrice: oldPrice,
-                                    ),
+                                    // cartScreen: CartScreen(
+                                    //   // name: name,
+                                    //   // picture: picture,
+                                    //   // dsPrice: dsPrice,
+                                    //   // oldPrice: oldPrice,
+                                    // ),
                                   ),
                                 ),
                               );
