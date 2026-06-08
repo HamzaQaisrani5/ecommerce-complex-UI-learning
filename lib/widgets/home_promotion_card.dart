@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 
 class HomePromotionCard extends StatefulWidget {
   int currentIndex;
-  HomePromotionCard({super.key, this.currentIndex = 0});
+  final PageController pageController;
+  HomePromotionCard({super.key, this.currentIndex = 0, required this.pageController});
 
   @override
   State<HomePromotionCard> createState() => _HomePromotionCardState();
 }
 
 class _HomePromotionCardState extends State<HomePromotionCard> {
-  final PageController pageController = PageController();
   @override
   void initState() {
     super.initState();
@@ -21,7 +21,7 @@ class _HomePromotionCardState extends State<HomePromotionCard> {
       if (widget.currentIndex > 2) {
         widget.currentIndex = 0;
       }
-      pageController.animateToPage(
+      widget.pageController.animateToPage(
         widget.currentIndex,
         duration: Duration(seconds: 1),
         curve: Curves.easeInOutQuad,
@@ -29,12 +29,18 @@ class _HomePromotionCardState extends State<HomePromotionCard> {
     });
   }
 
+  // @override
+  // void dispose() {
+  //   pageController.dispose(); // TODO: implement dispose
+  //   super.dispose();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 150,
       child: PageView.builder(
-        controller: pageController,
+        controller: widget.pageController,
         scrollDirection: Axis.horizontal,
         itemCount: 3,
         itemBuilder: (_, index) {

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:ecommerce_app/core/app_colors/app_colors.dart';
 import 'package:ecommerce_app/core/constants.dart';
 import 'package:ecommerce_app/screens/bottom_navigation_screen/bottom_navigation_screen.dart';
@@ -26,7 +27,7 @@ class ProductDetailScreen extends StatefulWidget {
     required this.dsPrice,
     required this.oldPrice,
     this.reviewStarIndex = -1,
-    this.quantity = 1
+    this.quantity = 1,
     // required this.cartScreen,
   });
 
@@ -35,6 +36,7 @@ class ProductDetailScreen extends StatefulWidget {
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
+  final _player = AudioPlayer();
   void selectedStar(int index) {
     widget.reviewStarIndex = index;
   }
@@ -189,12 +191,21 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           'picture': widget.picture,
                           'ds_price': widget.dsPrice,
                           'old_price': widget.oldPrice,
-                          'qunatity':widget.quantity,
+                          'quantity': widget.quantity,
                         };
                         final hive = Hive.box(StorageKeys.cartItems);
                         await hive.add(item);
-
-                        // log('cartList: ${hive.values.toList()}');
+                        log('Data: ${hive.values}');
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Added to cart'),
+                            behavior: SnackBarBehavior.floating,
+                            duration: Duration(seconds: 3),
+                          ),
+                        );
+                        await _player.play(
+                          AssetSource('notifi_ring/messages.mp3'),
+                        );
                       },
                       child: Text(
                         'Add to Cart',

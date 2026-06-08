@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:ecommerce_app/core/constants.dart';
 import 'package:ecommerce_app/models/bottom_nav_item.dart';
 import 'package:ecommerce_app/screens/profile_screen.dart';
@@ -21,9 +20,19 @@ class BottomNavigationScreen extends StatefulWidget {
 
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   List cartItems = [];
- 
+
   void setIndex(int newIndex) {
+    if (newIndex == 1) {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => CartScreen(cartItem: cartItems),
+              ),
+            );
+          }
+          else{
     widget.currentIndex = newIndex;
+          }
+
     final hive = Hive.box(StorageKeys.cartItems);
     cartItems = hive.values.toList();
     log('cartList: $cartItems');
@@ -32,10 +41,15 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(index: widget.currentIndex, children: [ HomeScreen(),
-    CartScreen(cartItem: cartItems),
-    FavouriteScreen(),
-    ProfileScreen(),]),
+      body: IndexedStack(
+        index: widget.currentIndex,
+        children: [
+          HomeScreen(),
+          CartScreenDummy(),
+          // FavouriteScreen(),
+          // ProfileScreen(),
+        ],
+      ),
       bottomNavigationBar: CustomBottomBar(
         onTap: (index) {
           setState(() {
@@ -61,24 +75,24 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
             ),
             label: 'Cart',
           ),
-          BottomNavItem(
-            activeIcon: Icon(
-              Icons.favorite_outlined,
-              color: Colors.white,
-              size: 32,
-            ),
-            inActiveIcon: Icon(
-              Icons.favorite_outlined,
-              color: Colors.black,
-              size: 30,
-            ),
-            label: 'Favourite',
-          ),
-          BottomNavItem(
-            activeIcon: Icon(Icons.person, color: Colors.white, size: 32),
-            inActiveIcon: Icon(Icons.person, color: Colors.black, size: 30),
-            label: 'Profile',
-          ),
+          // BottomNavItem(
+          //   activeIcon: Icon(
+          //     Icons.favorite_outlined,
+          //     color: Colors.white,
+          //     size: 32,
+          //   ),
+          //   inActiveIcon: Icon(
+          //     Icons.favorite_outlined,
+          //     color: Colors.black,
+          //     size: 30,
+          //   ),
+          //   label: 'Favourite',
+          // ),
+          // BottomNavItem(
+          //   activeIcon: Icon(Icons.person, color: Colors.white, size: 32),
+          //   inActiveIcon: Icon(Icons.person, color: Colors.black, size: 30),
+          //   label: 'Profile',
+          // ),
         ],
         currentIndex: widget.currentIndex,
       ),

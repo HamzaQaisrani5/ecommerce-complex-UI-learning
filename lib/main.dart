@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:ecommerce_app/core/app_colors/app_colors.dart';
@@ -27,10 +28,12 @@ void main() async {
   );
   final Directory dir = await getApplicationDocumentsDirectory();
   Hive.init(dir.path);
-  var box = await Hive.openBox(StorageKeys.cartItems);
-  for (var item in box.values) {
-  item['quantity'] ??= 1;
-}
+  await Hive.openBox(StorageKeys.cartItems);
+
+  // await Hive.box(StorageKeys.cartItems).close();
+  // await Hive.deleteBoxFromDisk(StorageKeys.cartItems);
+  bool isOpen = Hive.isBoxOpen(StorageKeys.cartItems);
+  log('isBoxOpen: $isOpen');
   runApp(MyApp());
 }
 

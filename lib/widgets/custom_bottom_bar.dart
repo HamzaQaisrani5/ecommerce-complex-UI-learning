@@ -24,8 +24,8 @@ class CustomBottomBar extends StatelessWidget {
           _buildItem(0, onTap, currentIndex, items),
           _buildItem(1, onTap, currentIndex, items),
           // SizedBox(width: 65),
-          _buildItem(2, onTap, currentIndex, items),
-          _buildItem(3, onTap, currentIndex, items),
+          // _buildItem(2, onTap, currentIndex, items),
+          // _buildItem(3, onTap, currentIndex, items),
         ],
       ),
     );

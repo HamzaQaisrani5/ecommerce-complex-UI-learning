@@ -7,17 +7,16 @@ import 'package:flutter/material.dart';
 import 'package:ecommerce_app/core/app_colors/app_colors.dart';
 
 class HomeScreen extends StatefulWidget {
-  int bottomTabIndex;
   int tabIndex;
 
-  HomeScreen({super.key, this.bottomTabIndex = 0, this.tabIndex = 0});
+  HomeScreen({super.key, this.tabIndex = 0});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // final PageController _pageController = PageController();
+  final PageController _pageController = PageController();
   List tabIconspath = [
     'asset/icons/watch_icon.png',
     'asset/icons/shoe_icon.png',
@@ -95,6 +94,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
+  void dispose() {
+    _pageController.dispose(); // TODO: implement dispose
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       persistentFooterDecoration: BoxDecoration(color: Colors.amber),
@@ -149,7 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 SizedBox(height: 25),
-                HomePromotionCard(),
+                HomePromotionCard(pageController: _pageController),
                 SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
