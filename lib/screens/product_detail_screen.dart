@@ -1,15 +1,11 @@
-import 'dart:async';
 import 'dart:developer';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:ecommerce_app/core/app_colors/app_colors.dart';
 import 'package:ecommerce_app/core/constants.dart';
 import 'package:ecommerce_app/screens/bottom_navigation_screen/bottom_navigation_screen.dart';
-import 'package:ecommerce_app/screens/cart_screen.dart';
-import 'package:ecommerce_app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:introduction_screen/introduction_screen.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   final String name;
@@ -193,9 +189,22 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           'old_price': widget.oldPrice,
                           'quantity': widget.quantity,
                         };
+                        final hiveValues = Hive.box(
+                          StorageKeys.cartItems,
+                        ).values.toList();
+
                         final hive = Hive.box(StorageKeys.cartItems);
-                        await hive.add(item);
-                        log('Data: ${hive.values}');
+                        
+                        final isExist = hiveValues.where((index) {
+                          if (index['name'] != item['name']) {
+                            hive.add(item);
+                          }
+                          return index['name'] != item['name'];
+                        });
+                        
+                        log('isExist: $isExist');
+
+                        log('Data Before added: ${hive.values}');
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text('Added to cart'),
@@ -203,9 +212,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             duration: Duration(seconds: 3),
                           ),
                         );
-                        await _player.play(
-                          AssetSource('notifi_ring/messages.mp3'),
-                        );
+                        //   await _player.play(
+                        //     AssetSource('notifi_ring/messages.mp3'),
+                        //   );
                       },
                       child: Text(
                         'Add to Cart',
