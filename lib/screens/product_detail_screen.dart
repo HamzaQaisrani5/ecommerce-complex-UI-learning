@@ -182,7 +182,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         ),
                       ),
                       onPressed: () async {
-                        final item = {
+                        Map item = {
                           'name': widget.name,
                           'picture': widget.picture,
                           'ds_price': widget.dsPrice,
@@ -193,16 +193,22 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           StorageKeys.cartItems,
                         ).values.toList();
 
+                        String firstValueName = hiveValues[0]['name'];
+                        String selectedValuename = item['name'];
+                        final isSame = firstValueName.compareTo(
+                          selectedValuename,
+                        );
+                        log('isSame: $isSame');
+
+
                         final hive = Hive.box(StorageKeys.cartItems);
-                        
-                        final isExist = hiveValues.where((index) {
-                          if (index['name'] != item['name']) {
-                            hive.add(item);
-                          }
-                          return index['name'] != item['name'];
-                        });
-                        
-                        log('isExist: $isExist');
+
+                    //  hiveValues.where((index) {
+                    //       if (index['name'] != item['name']) {
+                    //         hive.add(item);
+                    //       }
+                    //       return index['name'] != item['name'];
+                    //     });
 
                         log('Data Before added: ${hive.values}');
                         ScaffoldMessenger.of(context).showSnackBar(
