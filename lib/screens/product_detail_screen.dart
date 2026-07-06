@@ -37,6 +37,15 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     widget.reviewStarIndex = index;
   }
 
+  bool isAvailable(List existingValues, Map newItem) {
+    for (var i = 0; i < existingValues.length; i++) {
+      if (existingValues[i]['name'] == newItem['name']) {
+        return true; //match to existing elements
+      }
+    }
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -189,28 +198,20 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           'old_price': widget.oldPrice,
                           'quantity': widget.quantity,
                         };
-                        final hiveValues = Hive.box(
-                          StorageKeys.cartItems,
-                        ).values.toList();
+                        // final hiveValues = Hive.box(
+                        //   StorageKeys.cartItems,
+                        // ).values.toList();
+                        // isAvailable(hiveValues, item);
+                        // log('isAvailable: ${isAvailable(hiveValues, item)}');
 
-                        String firstValueName = hiveValues[0]['name'];
-                        String selectedValuename = item['name'];
-                        final isSame = firstValueName.compareTo(
-                          selectedValuename,
-                        );
-                        log('isSame: $isSame');
-
-
+                        if (!isAvailable(
+                          Hive.box(StorageKeys.cartItems).values.toList(),
+                          item,
+                        )) {
+                          await Hive.box(StorageKeys.cartItems).add(item);
+                        }
                         final hive = Hive.box(StorageKeys.cartItems);
-
-                    //  hiveValues.where((index) {
-                    //       if (index['name'] != item['name']) {
-                    //         hive.add(item);
-                    //       }
-                    //       return index['name'] != item['name'];
-                    //     });
-
-                        log('Data Before added: ${hive.values}');
+                        log('Data After added: ${hive.values}');
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text('Added to cart'),
