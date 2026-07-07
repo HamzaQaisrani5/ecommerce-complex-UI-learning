@@ -40,6 +40,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   bool isAvailable(List existingValues, Map newItem) {
     for (var i = 0; i < existingValues.length; i++) {
       if (existingValues[i]['name'] == newItem['name']) {
+        existingValues[i]['quantity']++;
         return true; //match to existing elements
       }
     }
@@ -198,12 +199,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           'old_price': widget.oldPrice,
                           'quantity': widget.quantity,
                         };
-                        // final hiveValues = Hive.box(
-                        //   StorageKeys.cartItems,
-                        // ).values.toList();
-                        // isAvailable(hiveValues, item);
-                        // log('isAvailable: ${isAvailable(hiveValues, item)}');
-
                         if (!isAvailable(
                           Hive.box(StorageKeys.cartItems).values.toList(),
                           item,
@@ -219,9 +214,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             duration: Duration(seconds: 3),
                           ),
                         );
-                        //   await _player.play(
-                        //     AssetSource('notifi_ring/messages.mp3'),
-                        //   );
+                          await _player.play(
+                            AssetSource('notifi_ring/messages.mp3'),
+                          );
                       },
                       child: Text(
                         'Add to Cart',
