@@ -32,7 +32,6 @@ class ProductDetailScreen extends StatefulWidget {
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
-  final _player = AudioPlayer();
   void selectedStar(int index) {
     widget.reviewStarIndex = index;
   }
@@ -214,9 +213,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             duration: Duration(seconds: 3),
                           ),
                         );
-                          await _player.play(
-                            AssetSource('notifi_ring/messages.mp3'),
-                          );
                       },
                       child: Text(
                         'Add to Cart',
