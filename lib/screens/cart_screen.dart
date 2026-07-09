@@ -73,7 +73,7 @@ class _CartScreenState extends State<CartScreen> {
                                   ),
                                 ],
                               ),
-                              // SizedBox(width: 40),
+                              SizedBox(width: 40),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
@@ -192,9 +192,7 @@ class _CartScreenState extends State<CartScreen> {
                       borderRadius: BorderRadiusGeometry.circular(25),
                     ),
                   ),
-                  onPressed: () {
-                   
-                  },
+                  onPressed: () {},
                   child: Text(
                     'Buy Now',
                     style: TextStyle(fontWeight: FontWeight.bold),

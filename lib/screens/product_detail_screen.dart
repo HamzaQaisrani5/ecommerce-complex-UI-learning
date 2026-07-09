@@ -1,11 +1,11 @@
 import 'dart:developer';
 
-import 'package:audioplayers/audioplayers.dart';
 import 'package:ecommerce_app/core/app_colors/app_colors.dart';
 import 'package:ecommerce_app/core/constants.dart';
 import 'package:ecommerce_app/screens/bottom_navigation_screen/bottom_navigation_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:just_audio/just_audio.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   final String name;
@@ -32,6 +32,8 @@ class ProductDetailScreen extends StatefulWidget {
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
+  final AudioPlayer _player = AudioPlayer();
+
   void selectedStar(int index) {
     widget.reviewStarIndex = index;
   }
@@ -44,6 +46,12 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       }
     }
     return false;
+  }
+
+  @override
+  void dispose() {
+    _player.dispose();
+    super.dispose();
   }
 
   @override
@@ -206,6 +214,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         }
                         final hive = Hive.box(StorageKeys.cartItems);
                         log('Data After added: ${hive.values}');
+                        await _player.setAsset(
+                          'asset/notifi_ring/messages.mp3',
+                        );
+                        await _player.play();
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text('Added to cart'),
